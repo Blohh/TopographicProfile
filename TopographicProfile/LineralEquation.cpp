@@ -202,4 +202,18 @@ myMaths::Vector myMaths::LineralEquation::BackSubstitution(const Matrix& U, cons
 	return x;
 }
 
+double myMaths::LineralEquation::LaGrangeInterpolation(double xi, const std::vector<double>& x, const std::vector<double>& y)
+{
+	double result = 0.0;
+	for (int i = 0; i < x.size(); i++) {
+		double term = y[i];
+		for (int j = 0; j < x.size(); j++) {
+			if (j != i)
+				term *= (xi - x[j]) / (x[i] - x[j]);
+		}
+		result += term;
+	}
+	return result;
+}
+
 
