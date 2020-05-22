@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+const std::string output = "../output/";
 namespace myMaths {
 	const std::string path = "data/";
 	static class LineralEquation

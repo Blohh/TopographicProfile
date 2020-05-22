@@ -220,13 +220,18 @@ void myMaths::LineralEquation::loadData(std::vector<double>& x, std::vector<doub
 {
 	std::string file = path+filename;
 	std::ifstream data(file);
+	std::ofstream X_in(output+"X_in.txt"), Y_in(output+"Y_in.txt"), X_test(output+"X_test.txt"), Y_test(output+"Y_test.txt");
 	x.clear(); y.clear();
 	int counter = 0;
 	if (!data) throw "Cannot open file!";
 	while (!data.eof()) {
 		double _x = 0, _y = 0;
 		data >> _x >> _y;
+		X_in << _x << std::endl;
+		Y_in << _y << std::endl;
 		if (counter++ % interval) continue;
+		X_test << _x << std::endl;
+		Y_test << _y << std::endl;
 		x.push_back(_x); y.push_back(_y);
 	}
 }

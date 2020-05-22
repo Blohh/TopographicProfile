@@ -18,7 +18,7 @@ void laGrange() {
 	std::vector<double>X_input;
 	std::vector<double>Y_input;
 
-	std::ofstream xOutput("X_out.txt"), yOutput("Y_out.txt");
+	std::ofstream xOutput(output+"X_out.txt"), yOutput(output+"Y_out.txt");
 	myMaths::LineralEquation::loadData(X_input, Y_input, "stale.txt", 5);
 	for (double xi = X_input[0]; xi < X_input[X_input.size() - 1]; xi += 0.1) {
 		xOutput << xi << std::endl;
