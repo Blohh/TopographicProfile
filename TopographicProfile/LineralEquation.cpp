@@ -218,9 +218,11 @@ double myMaths::LineralEquation::LaGrangeInterpolation(double xi, const std::vec
 
 void myMaths::LineralEquation::loadData(std::vector<double>& x, std::vector<double>& y, std::string filename, int interval)
 {
-	std::ifstream data(path + filename);
+	std::string file = path+filename;
+	std::ifstream data(file);
 	x.clear(); y.clear();
 	int counter = 0;
+	if (!data) throw "Cannot open file!";
 	while (!data.eof()) {
 		double _x = 0, _y = 0;
 		data >> _x >> _y;

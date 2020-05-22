@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 namespace myMaths {
-	const std::string path = ".\\data\\";
+	const std::string path = "data/";
 	static class LineralEquation
 	{
 		static unsigned int GaussSeidleIterations;

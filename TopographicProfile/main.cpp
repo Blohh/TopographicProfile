@@ -3,15 +3,25 @@
 #include "LineralEquation.h"
 #include <iostream>
 #include <fstream>
-
+void laGrange();
 int main() {
 	try {
-		std::vector<double> x = { 0, 1, 2, 5 };
-		std::vector<double> y = { 2, 3, 12, 147 };
-		std::cout << "f(3) = " << myMaths::LineralEquation::LaGrangeInterpolation(3, x, y) <<  std::endl;
+		laGrange();
 	}
 	catch (const char* msg) {
 		std::cout << "Exception happened!\n" << msg << std::endl;
 	}
 	return 0;
+}
+void laGrange() {
+	auto F = myMaths::LineralEquation::LaGrangeInterpolation;
+	std::vector<double>X_input;
+	std::vector<double>Y_input;
+
+	std::ofstream xOutput("X_out.txt"), yOutput("Y_out.txt");
+	myMaths::LineralEquation::loadData(X_input, Y_input, "stale.txt", 5);
+	for (double xi = X_input[0]; xi < X_input[X_input.size() - 1]; xi += 0.1) {
+		xOutput << xi << std::endl;
+		yOutput << F(xi, X_input, Y_input) << std::endl;
+	}
 }
