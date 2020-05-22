@@ -216,7 +216,7 @@ double myMaths::LineralEquation::LaGrangeInterpolation(double xi, const std::vec
 	return result;
 }
 
-void myMaths::LineralEquation::loadData(std::vector<double>& x, std::vector<double>& y, std::string filename, int interval)
+void myMaths::LineralEquation::loadData(std::vector<double>& x, std::vector<double>& y, std::string filename, int interval, std::vector<double>& xin, std::vector<double>& yin)
 {
 	std::string file = path+filename;
 	std::ifstream data(file);
@@ -229,6 +229,7 @@ void myMaths::LineralEquation::loadData(std::vector<double>& x, std::vector<doub
 		data >> _x >> _y;
 		X_in << _x << std::endl;
 		Y_in << _y << std::endl;
+		xin.push_back(_x); yin.push_back(_y);
 		if (counter++ % interval) continue;
 		X_test << _x << std::endl;
 		Y_test << _y << std::endl;
