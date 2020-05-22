@@ -2,7 +2,11 @@
 #include "Matrix.h"
 #include "Vector.h"
 #include <vector>
+#include <iostream>
+#include <string>
+#include <fstream>
 namespace myMaths {
+	const std::string path = ".\\data\\";
 	static class LineralEquation
 	{
 		static unsigned int GaussSeidleIterations;
@@ -26,6 +30,7 @@ namespace myMaths {
 		static Vector FowardSubstitution(const Matrix& L, const Vector& b);
 		static Vector BackSubstitution(const Matrix& U,const Vector& y);
 		static double LaGrangeInterpolation(double xi, const std::vector<double>& x, const std::vector<double>&y);
+		static void loadData(std::vector<double>& x, std::vector<double>& y, std::string filename, int interval);
 	};
 }
 
