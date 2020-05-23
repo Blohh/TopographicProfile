@@ -240,9 +240,9 @@ void myMaths::LineralEquation::loadData(std::vector<double>& x, std::vector<doub
 void myMaths::LineralEquation::generateMatrix(Matrix& A, Vector& b, Vector& x, std::vector<double>& _x, std::vector<double>& _y, int n)
 {
 	int N = 4 * (n - 1);
-	A.matrix.clear(); A.matrix.resize(N); A.zeros();
-	b.vector.clear(); b.vector.resize(N); b.zeros();
-	x.vector.clear(); x.vector.resize(N); x.ones();
+	A.zeros();
+	b.zeros();
+	x.ones();
 
 	A.matrix[0][0] = 1.0; //a0
 	b.vector[0] = _y[0];
