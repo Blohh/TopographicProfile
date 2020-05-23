@@ -331,6 +331,18 @@ void myMaths::LineralEquation::generateMatrix(Matrix& A, Vector& b, Vector& x, s
 		A.matrix[2 + 4 * (i - 1) + 1][4 * (i - 1) + 3] = 6.0 * h;//di
 		A.matrix[2 + 4 * (i - 1) + 1][0] = 0;
 	}
+	Pivoting(A, b, N);
+}
+
+void myMaths::LineralEquation::Pivoting(Matrix& A, Vector& b, int N)
+{
+	for (int i = 2; i < N - 2; i += 4) {
+		A.swapRows(i + 1, i + 3);
+		b.swap(i + 1, i + 3);
+
+		A.swapRows(i + 2, i + 3);
+		b.swap(i + 2, i + 3);
+	}
 }
 
 
