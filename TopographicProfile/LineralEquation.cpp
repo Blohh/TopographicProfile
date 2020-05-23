@@ -237,4 +237,100 @@ void myMaths::LineralEquation::loadData(std::vector<double>& x, std::vector<doub
 	}
 }
 
+void myMaths::LineralEquation::generateMatrix(Matrix& A, Vector& b, Vector& x, std::vector<double>& _x, std::vector<double>& _y, int n)
+{
+	int N = 4 * (n - 1);
+	A.matrix.clear(); A.matrix.resize(N); A.zeros();
+	b.vector.clear(); b.vector.resize(N); b.zeros();
+	x.vector.clear(); x.vector.resize(N); x.ones();
+
+	A.matrix[0][0] = 1.0; //a0
+	b.vector[0] = _y[0];
+
+	A.matrix[1][2] = 2.0; //c0
+	b.vector[1] = 0;
+
+
+	double h = (_x[1] - _x[0]);
+	A.matrix[1][1] += 1.0; //bi
+	A.matrix[1][2] += 2 * h; //ci
+	A.matrix[1][3] += 3 * h * h; //di
+	A.matrix[1][5] += -1.0; //d(i+1)
+	b.vector[1] += 0.0;
+
+	for (int i = 1; i < n - 1; i++) {
+		double h = (_x[i] - _x[i - 1]);
+
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 0] = 1.0;
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 1] = h;
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 2] = h * h;
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 3] = h * h * h;
+		b.vector[2 + 4 * (i - 1) + 0] = _y[i];
+
+		A.matrix[2 + 4 * (i - 1) + 1][4 * i + 0] = 1.0;
+		b.vector[2 + 4 * (i - 1) + 1] = _y[i];
+
+		A.matrix[2 + 4 * (i - 1) + 2][4 * (i - 1) + 1] = 1.0;//b.vectori
+		A.matrix[2 + 4 * (i - 1) + 2][4 * (i - 1) + 2] = 2 * h;//ci
+		A.matrix[2 + 4 * (i - 1) + 2][4 * (i - 1) + 3] = 3 * h * h;//di
+		A.matrix[2 + 4 * (i - 1) + 2][4 * i + 1] = -1.0;//d(i+1)
+		b.vector[2 + 4 * (i - 1) + 2] = 0.0;
+
+		A.matrix[2 + 4 * (i - 1) + 3][4 * (i - 1) + 2] = 2.0;//ci
+		A.matrix[2 + 4 * (i - 1) + 3][4 * (i - 1) + 3] = 6.0 * h;//ci
+		A.matrix[2 + 4 * (i - 1) + 3][4 * i + 2] = -2.0;//c(i+1)
+		b.vector[2 + 4 * (i - 1) + 3] = 0.0;
+	}
+
+	for (int i = n - 1; i < n; i++) {
+		double h = (_x[i] - _x[i - 1]);
+
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 0] = 1.0;//A.matrixi
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 1] = h;//bi
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 2] = h * h;//ci
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 3] = h * h * h;//di
+		b.vector[2 + 4 * (i - 1) + 0] = _y[i];
+
+		A.matrix[2 + 4 * (i - 1) + 1][4 * (i - 1) + 2] = 2.0;//ci
+		A.matrix[2 + 4 * (i - 1) + 1][4 * (i - 1) + 3] = 6.0 * h;//di
+		A.matrix[2 + 4 * (i - 1) + 1][0] = 0;
+	}for (int i = 1; i < n - 1; i++) {
+		double h = (_x[i] - _x[i - 1]);
+
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 0] = 1.0;
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 1] = h;
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 2] = h * h;
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 3] = h * h * h;
+		b.vector[2 + 4 * (i - 1) + 0] = _y[i];
+
+		A.matrix[2 + 4 * (i - 1) + 1][4 * i + 0] = 1.0;
+		b.vector[2 + 4 * (i - 1) + 1] = _y[i];
+
+		A.matrix[2 + 4 * (i - 1) + 2][4 * (i - 1) + 1] = 1.0;//bi
+		A.matrix[2 + 4 * (i - 1) + 2][4 * (i - 1) + 2] = 2 * h;//ci
+		A.matrix[2 + 4 * (i - 1) + 2][4 * (i - 1) + 3] = 3 * h * h;//di
+		A.matrix[2 + 4 * (i - 1) + 2][4 * i + 1] = -1.0;//d(i+1)
+		b.vector[2 + 4 * (i - 1) + 2] = 0.0;
+
+		A.matrix[2 + 4 * (i - 1) + 3][4 * (i - 1) + 2] = 2.0;//ci
+		A.matrix[2 + 4 * (i - 1) + 3][4 * (i - 1) + 3] = 6.0 * h;//ci
+		A.matrix[2 + 4 * (i - 1) + 3][4 * i + 2] = -2.0;//c(i+1)
+		b.vector[2 + 4 * (i - 1) + 3] = 0.0;
+	}
+
+	for (int i = n - 1; i < n; i++) {
+		double h = (_x[i] - _x[i - 1]);
+
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 0] = 1.0;//Ai
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 1] = h;//bi
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 2] = h * h;//ci
+		A.matrix[2 + 4 * (i - 1) + 0][4 * (i - 1) + 3] = h * h * h;//di
+		b.vector[2 + 4 * (i - 1) + 0] = _y[i];
+
+		A.matrix[2 + 4 * (i - 1) + 1][4 * (i - 1) + 2] = 2.0;//ci
+		A.matrix[2 + 4 * (i - 1) + 1][4 * (i - 1) + 3] = 6.0 * h;//di
+		A.matrix[2 + 4 * (i - 1) + 1][0] = 0;
+	}
+}
+
 

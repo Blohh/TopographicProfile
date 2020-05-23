@@ -32,6 +32,7 @@ namespace myMaths {
 		static Vector BackSubstitution(const Matrix& U,const Vector& y);
 		static double LaGrangeInterpolation(double xi, const std::vector<double>& x, const std::vector<double>&y);
 		static void loadData(std::vector<double>& x, std::vector<double>& y, std::string filename, int interval, std::vector<double>& xin, std::vector<double>& yin);
+		static void generateMatrix(Matrix& A, Vector& b, Vector& x, std::vector<double>& _x, std::vector<double>& _y, int n);
 	};
 }
 
