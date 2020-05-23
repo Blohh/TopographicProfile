@@ -80,6 +80,12 @@ void myMaths::Matrix::ones()
 		for (int j = 0; j < this->cols; j++) this->matrix[i][j] = 1;
 }
 
+void myMaths::Matrix::swapRows(int first, int second)
+{
+	for (int i = 0; i < this->getRows(); i++)
+		std::swap(this->matrix[first][i], this->matrix[second][i]);
+}
+
 myMaths::Matrix& myMaths::Matrix::operator=(const myMaths::Matrix& copied)
 {
 	this->matrix.resize(copied.getCols());

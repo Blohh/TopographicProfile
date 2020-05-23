@@ -19,6 +19,7 @@ namespace myMaths {
 		Matrix lowerTriangle();
 		void zeros();
 		void ones();
+		void swapRows(int first, int second);
 		Matrix& operator=(const Matrix& copied);
 		Matrix& operator=(const std::vector<std::vector<double>> mat);
 		Matrix operator+(const Matrix& added) const throw();
