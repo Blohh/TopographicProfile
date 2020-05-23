@@ -31,6 +31,11 @@ int myMaths::Vector::getSize() const
 	return this->vector.size();
 }
 
+void myMaths::Vector::swap(int first, int second)
+{
+	std::swap(this->vector[first], this->vector[second]);
+}
+
 double myMaths::Vector::norm() const
 {
 	double ans = 0.0;

@@ -14,6 +14,7 @@ namespace myMaths {
 		void zeros();
 		void ones();
 		int getSize() const;
+		void swap(int first, int second);
 		double norm() const;
 		Vector copy() const;
 		Vector& operator=(const Vector& copied);
