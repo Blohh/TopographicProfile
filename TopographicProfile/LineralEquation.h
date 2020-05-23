@@ -34,6 +34,7 @@ namespace myMaths {
 		static void loadData(std::vector<double>& x, std::vector<double>& y, std::string filename, int interval, std::vector<double>& xin, std::vector<double>& yin);
 		static void generateMatrix(Matrix& A, Vector& b, Vector& x, std::vector<double>& _x, std::vector<double>& _y, int n);
 		static void Pivoting(Matrix& A, Vector& b, int N);
+		static double SplineInterpolation(double _x, std::vector<double>& x, std::vector<double>& y);
 	};
 }
 

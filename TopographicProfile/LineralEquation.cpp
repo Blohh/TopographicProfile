@@ -345,4 +345,21 @@ void myMaths::LineralEquation::Pivoting(Matrix& A, Vector& b, int N)
 	}
 }
 
+double myMaths::LineralEquation::SplineInterpolation(double x0, std::vector<double>& _x, std::vector<double>& _y)
+{
+	double ans = 0.0;
+	int n = _x.size(), N = 4 * (n - 1);
+	Matrix A = Matrix(N, N); Vector x = Vector(N), b = Vector(N);
+	generateMatrix(A, b, x, _x, _y, n);
+	Vector X = LUFactorization(A, b);
+	for (int i = 0; i < n - 1; i++)
+		if (x0 >= _x[i] && x0 <= _x[i + 1]) {
+			ans = 0.0;
+			for (int k = 0; k < 4; k++)
+				ans += X.vector[4 * i + k] * pow(x0 - _x[i], k);
+			return ans;
+		}
+	return 0.0;
+}
+
 
